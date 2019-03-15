@@ -1,0 +1,15 @@
+{
+  "name": "WxpayAPI-nodejs",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askdaddy/WxpayAPI-nodejs.git"
+  },
+  "author": "Askdaddy <askdaddy@gmail.com>",
+  "license": "MIT"
+}
