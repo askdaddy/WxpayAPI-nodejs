@@ -69,3 +69,4 @@ $RECYCLE.BIN/
 *.msp
 *.lnk
 dist/
+/example-dist/

@@ -86,3 +86,5 @@ $RECYCLE.BIN/
 *.msp
 *.lnk
 /lib/
+/example/
+/example-dist/

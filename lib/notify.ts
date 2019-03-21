@@ -3,7 +3,6 @@ import {Config} from "./config";
 import {NotifyResults} from "./structure/notify_results";
 import {WxPayApi} from "./api";
 import {Results} from "./structure/results";
-import {rejects} from "assert";
 
 export class Notify extends NotifyReply {
     private config: Config | null = null;
@@ -27,21 +26,21 @@ export class Notify extends NotifyReply {
 
     private notifyCallBack(response: string): Promise<Error | null> {
         const self = this;
-        return new Promise<Error | null>((resolve, rejects) => {
+        return new Promise<Error | null>((resolve, reject) => {
             if (!self.config)
-                return rejects(new Error("缺少配置！"));
+                return reject(new Error("缺少配置！"));
 
             NotifyResults.init(self.config, response)
                 .then((results: Results) => {
                     // 调用处理方法
-                    if (self.process()) {
+                    if (self.process(results)) {
                         resolve(null);
                     } else {
-                        rejects(new Error("处理失败！"));
+                        reject(new Error("处理失败！"));
                     }
                 })
                 .catch((reason: Error) => {
-                    rejects(reason);
+                    reject(reason);
                 })
         })
 
@@ -54,7 +53,7 @@ export class Notify extends NotifyReply {
     //  注意：
     //  1、微信回调超时时间为2s，建议用户使用异步处理流程，确认成功之后立刻回复微信服务器
     //  2、微信服务器在调用失败或者接到回包为非确认包的时候，会发起重试，需确保你的回调是可以重入
-    public process(): boolean {
+    public process(results: Results): boolean {
         return false;
     }
 

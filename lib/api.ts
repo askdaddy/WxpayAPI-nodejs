@@ -5,9 +5,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as requestPromise from "request-promise-native";
 import {Results} from "./structure/results";
+import {OrderQuery} from "./structure/order_query";
 
 export class WxPayApi {
-    static unifiedOrder(config: Config, input: UnifiedOrder, timeOut = 6): Promise<Results> {
+    static unifiedOrder(config: Config, input: UnifiedOrder): Promise<Results> {
         const api_url: string = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
         //检测必填参数
@@ -59,6 +60,37 @@ export class WxPayApi {
                     reject(err);
                 });
         });
+    }
+
+    static orderQuery(config: Config, input: OrderQuery): Promise<Results> {
+        const api_url: string = 'https://api.mch.weixin.qq.com/pay/orderquery';
+
+        //检测必填参数
+        if (!input.isOutTradeNoSet() && !input.isTransactionIdSet()) {
+            throw new Error("订单查询接口中，out_trade_no、transaction_id至少填一个！");
+        }
+
+        input.appId = config.GetAppId();
+        input.mchId = config.GetMerchantId();
+        input.nonceStr = WxPayApi.getNonceStr();
+
+        input.makeSign(config);
+        const xml = input.toXml();
+        const startTime = new Date().getTime();
+
+        return new Promise<Results>((resolve, reject) => {
+            WxPayApi.postXML(config, xml, api_url)
+                .then((body: string) => {
+                    return Results.init(config, body);
+                })
+                .then((results: Results) => {
+                    resolve(results);
+                })
+                .catch((err: any) => {
+                    reject(err);
+                })
+        });
+
     }
 
     // 产生随机字符串，不长于32位
