@@ -1,6 +1,7 @@
 import {Config} from "../config";
 import * as crypto from "crypto";
 import * as xml2js from "xml2js";
+import {rejects} from "assert";
 
 export class Base {
     protected values: { [key: string]: any } = {};
@@ -38,7 +39,7 @@ export class Base {
     }
 
     // 生成签名
-    public MakeSign(config: Config, needSignType: boolean = true) {
+    public makeSign(config: Config, needSignType: boolean = true): string {
         const self = this;
 
         if (needSignType)
@@ -61,9 +62,12 @@ export class Base {
         } else {
             throw new Error('签名类型不支持!');
         }
+        //签名步骤四：所有字符转为大写
+        const sign_str: string = tmp_str.toUpperCase();
 
-        const sign_str = tmp_str.toUpperCase();
+        // 存储签名
         this.sign = sign_str;
+
         return sign_str;
     }
 
@@ -88,11 +92,21 @@ export class Base {
         return builder.buildObject(values);
     }
 
-    public fromXml(xml:string){
-        if(!xml){
+    public async fromXml(xml: string): Promise<Object> {
+        if (!xml) {
             throw new Error('xml数据为空!');
         }
-        const parser=new xml2js.Parser({trim:true,explicitArray:false,explicitRoot:false});
+        const parser = new xml2js.Parser({trim: true, explicitArray: false, explicitRoot: false});
 
+        return new Promise<Object>((resolve, rejects) => {
+            parser.parseString(xml, (err: Error, result: any) => {
+                if (err) {
+                    rejects(err);
+                } else {
+                    this.values = result;
+                    resolve(result);
+                }
+            })
+        });
     }
 }
