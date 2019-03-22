@@ -1,6 +1,6 @@
 import * as os from 'os';
 
-export class Utils {
+export default class Utils {
     static getRemoteIp(): string[] {
         const iface = os.networkInterfaces();
         const addr: string[] = [];

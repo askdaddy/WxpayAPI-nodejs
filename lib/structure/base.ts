@@ -1,7 +1,6 @@
 import {Config} from "../config";
 import * as crypto from "crypto";
 import * as xml2js from "xml2js";
-import {rejects} from "assert";
 
 export class Base {
     protected values: { [key: string]: any } = {};

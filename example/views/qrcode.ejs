@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body onload="onBodyLoaded()">
+<div id="qrcode"></div>
+<script>
+    let code =<%= code %>
+
+        function onBodyLoaded() {
+            const qr = new QRCode("qrcode");
+            qr.makeCode(code);
+        }
+</script>
+
+</body>
+</html>

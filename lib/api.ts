@@ -1,13 +1,13 @@
 import {Config, SSLCert} from "./config";
 import {UnifiedOrder} from "./structure/unified_order";
-import {Utils} from "./utils";
+import Utils from "./utils";
 import * as fs from "fs";
 import * as path from "path";
 import * as requestPromise from "request-promise-native";
 import {Results} from "./structure/results";
 import {OrderQuery} from "./structure/order_query";
 
-export class WxPayApi {
+export default class WxPayApi {
     static unifiedOrder(config: Config, input: UnifiedOrder): Promise<Results> {
         const api_url: string = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 

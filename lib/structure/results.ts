@@ -1,7 +1,6 @@
 import {Base} from "./base";
 import {Config} from "../config";
 import * as crypto from "crypto";
-import {rejects} from "assert";
 
 export class Results extends Base {
     // 生成签名 - override 父类方法

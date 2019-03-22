@@ -1,7 +1,7 @@
 import {NotifyReply} from "./structure/notify_reply";
 import {Config} from "./config";
 import {NotifyResults} from "./structure/notify_results";
-import {WxPayApi} from "./api";
+import WxPayApi from "./api";
 import {Results} from "./structure/results";
 
 export class Notify extends NotifyReply {

@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig",
   "compilerOptions": {
-    "outDir": "../dist/example"
+    "outDir": "../dist/"
   },
   "include": [
-    "./*.ts"
+    "./**/*.ts"
   ]
 }
