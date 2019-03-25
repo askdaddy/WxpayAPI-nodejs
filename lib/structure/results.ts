@@ -49,7 +49,9 @@ export class Results extends Base {
     // 从xml构建参数
     public static async init(config: Config, xml: string): Promise<Results> {
         const self: Results = new this();
-        const result: any = await self.fromXml(xml);
+        const result: any = await self.fromXml(xml).catch((err: Error) => {
+            console.error(err)
+        });
         return new Promise<Results>((resolve, rejects) => {
             if (!result) {
                 rejects("解析xml错误！");

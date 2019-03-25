@@ -49,6 +49,9 @@ export interface Config {
      * 3.商户服务器要做好病毒和木马防护工作，不被非法侵入者窃取证书文件。
      */
     GetSSLCertPath(): SSLCert;
+
+    // 手动配置服务器外网ip，返回null 程序自动获取
+    GetRemoteIpv4(): string|null;
 }
 
 export interface SSLCert {

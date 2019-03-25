@@ -5,7 +5,7 @@ import WxPayApi from "./api";
 import {Results} from "./structure/results";
 
 export class Notify extends NotifyReply {
-    private config: Config | null = null;
+    protected config: Config | null = null;
 
     public handle(config: Config, response: string, needSign = true) {
         const self = this;

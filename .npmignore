@@ -87,4 +87,5 @@ $RECYCLE.BIN/
 *.lnk
 /lib/
 /example/
-/example-dist/
+
+/dist/example/

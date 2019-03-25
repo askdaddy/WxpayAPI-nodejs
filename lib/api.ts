@@ -40,7 +40,7 @@ export default class WxPayApi {
         input.appId = config.GetAppId();
         input.mchId = config.GetMerchantId();
         // TODO 此处不支持多公网IP
-        input.spbillCreateIp = Utils.getRemoteIp().shift() || '';
+        input.spbillCreateIp = config.GetRemoteIpv4() || Utils.getRemoteIp().shift() || '';
         input.nonceStr = WxPayApi.getNonceStr();
 
         // 签名
@@ -51,6 +51,10 @@ export default class WxPayApi {
         return new Promise<Results>((resolve, reject) => {
             WxPayApi.postXML(config, xml, api_url)
                 .then((body: string) => {
+                    const failIdx=body.indexOf("FAIL");
+                    if(failIdx>0){
+                        reject(body);
+                    }
                     return Results.init(config, body);
                 })
                 .then((results: Results) => {
@@ -111,7 +115,7 @@ export default class WxPayApi {
             // integer containing number of milliseconds, controls two timeouts:
             // Read timeout: Time to wait for a server to send response headers (and start the response body) before aborting the request.
             // Connection timeout: Sets the socket to timeout after timeout milliseconds of inactivity. Note that increasing the timeout beyond the OS-wide TCP connection timeout will not have any effect.
-            timeout: timeOutSec,
+            timeout: timeOutSec * 1000,
             headers: {
                 'User-Agent': 'request'
             },

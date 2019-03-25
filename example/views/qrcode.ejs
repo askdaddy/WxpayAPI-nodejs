@@ -6,12 +6,12 @@
 <body onload="onBodyLoaded()">
 <div id="qrcode"></div>
 <script>
-    let code =<%= code %>
+    const code_url ="<%= code_url %>";
 
-        function onBodyLoaded() {
-            const qr = new QRCode("qrcode");
-            qr.makeCode(code);
-        }
+    function onBodyLoaded() {
+        const qr = new QRCode("qrcode");
+        qr.makeCode(code_url);
+    }
 </script>
 
 </body>

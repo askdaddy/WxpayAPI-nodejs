@@ -2,27 +2,24 @@ import {Config, SSLCert} from "../index";
 
 export class WxpayConfig implements Config {
     GetAppId(): string {
-        return "";
-    }
-
-    GetAppSecret(): string {
-        return "";
+        return "wx------------";
     }
 
     GetKey(): string {
-        return "";
+        return "3a-----------------------------69";
     }
 
     GetMerchantId(): string {
-        return "";
+        return "000000000000";
     }
 
-    GetNotifyUrl(): string {
-        return "";
+
+    GetSignType(): string {
+        return "MD5";
     }
 
-    GetReportLevenl(): number {
-        return 0;
+    GetRemoteIpv4(): string | null {
+        return null;
     }
 
     GetSSLCertPath(): SSLCert {
@@ -32,8 +29,16 @@ export class WxpayConfig implements Config {
         }
     }
 
-    GetSignType(): string {
+    // No needed.
+    GetAppSecret(): string {
         return "";
     }
 
+    GetReportLevenl(): number {
+        return 0;
+    }
+
+    GetNotifyUrl(): string {
+        return "";
+    }
 }
